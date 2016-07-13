@@ -12,6 +12,12 @@ DB = PG.connect({:dbname => 'library_test'})
 
 
 get('/') do
-
+  @page_title = "Library App"
   erb(:index)
+end
+
+get('/admin') do
+    @page_title = "Book Catalog"
+
+    erb(:books)
 end
