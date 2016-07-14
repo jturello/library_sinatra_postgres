@@ -21,3 +21,12 @@ get('/admin') do
 
     erb(:books)
 end
+
+post('/add_book') do
+  title = params[:book]
+  book = Book.new({:id => nil, :title => title})
+  book.save
+  @books = Book.all()
+
+  erb(:books)
+end

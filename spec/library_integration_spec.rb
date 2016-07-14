@@ -20,3 +20,13 @@ describe('/books path - display all books', {:type => :feature}) do
     expect(page).to have_content('Book Catalog')
   end
 end
+
+describe('/admin - adding a book', {:type => :feature}) do
+  it("lists all the book's authors") do
+    visit('/')
+    click_link('Admin')
+    fill_in('book', :with => 'The Hobbit')
+    click_button('Add')
+    expect(page).to have_content('The Hobbit')
+  end
+end
