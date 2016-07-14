@@ -81,9 +81,7 @@ describe(Book) do
       book2 = Book.find(book1.id)
       expect(book1).to eq(Book.find(book2.id))
     end
-  end
 
-  describe('#==') do
     it('returns false if the objects @id and @title are not equal') do
       book1 = Book.new({:id => nil, :title => 'Red'})
       book1.save()
@@ -102,6 +100,5 @@ describe(Book) do
       book2 = Book.find(book1.id)
       expect(book2.title).to eq('Green')
     end
-
   end
 end

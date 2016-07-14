@@ -83,9 +83,7 @@ describe(Author) do
       author2 = Author.find(author1.id)
       expect(author1).to eq(Author.find(author2.id))
     end
-  end
 
-  describe('#==') do
     it('returns false if the objects @id and @name are not equal') do
       author1 = Author.new({:id => nil, :name => 'Red'})
       author1.save()
