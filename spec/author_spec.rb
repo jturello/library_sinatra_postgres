@@ -2,11 +2,6 @@ require('spec_helper')
 
 describe(Author) do
 
-  # after(:each) do
-  #   DB.exec("DELETE FROM authors_books;")
-  #   Author.delete_all()
-  # end
-
   describe('#initialize') do
     it('instantiates an author object') do
       author = Author.new({:name => 'Mark Twain'})

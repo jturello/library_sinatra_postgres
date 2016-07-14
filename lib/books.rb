@@ -33,7 +33,8 @@ class Book
 
   def self.find(id)
     book = DB.exec("SELECT * FROM books WHERE id = #{id}").first()
-    return Book.new({id: book['id'].to_i, title: book['title']})
+    book_obj = Book.new({id: book['id'].to_i, title: book['title']})
+
   end
 
   def ==(other)
@@ -46,14 +47,13 @@ class Book
   end
 
   def add_authors(args)
-     args.fetch(:author_ids, []).each() do |author_id|
-       DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES (#{author_id}, #{@id});")
-     end
+     author = args[:author]
+     DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES  (#{author.id}, #{self.id});")
    end
 
    def authors()
      authors = []
-     results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{@id};")
+     results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{self.id};")
      results.each() do |result|
        author_id = result.fetch("author_id").to_i
        author = DB.exec("SELECT name FROM authors WHERE id = #{author_id};")
@@ -62,5 +62,4 @@ class Book
      end
      authors
    end
-
 end

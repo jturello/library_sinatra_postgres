@@ -2,11 +2,6 @@ require('spec_helper')
 
 describe(Book) do
 
-  # after(:each) do
-  #   DB.exec("DELETE FROM authors_books;")
-  #   Book.delete_all()
-  # end
-
   describe('#initialize') do
     it('instantiates a book object') do
       book = Book.new({:title => 'Cat in the Hat'})
@@ -108,11 +103,9 @@ describe(Book) do
       book = Book.new({:id => nil, :title => "The Hobbit"})
       book.save()
       tolkien = Author.new({:id => nil, :name => 'J.R.R Tolkien'})
-      creighton = Author.new({:id => nil, :name => 'Michael Creighton'})
       tolkien.save()
-      creighton.save()
-      book.add_authors({:author_ids => [tolkien.id(), creighton.id()]})
-      expect(book.authors()).to eq([tolkien, creighton])
+      book.add_authors({:author => tolkien})
+      expect(book.authors()).to eq([tolkien])
     end
   end
 end

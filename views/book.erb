@@ -2,10 +2,13 @@
 
 <h3>Book: <span class="green"><%= @book.title() %> </span></h3>
 
-<form action="/add_authors" method="post">
+<form action="/add_author" method="post">
   <div class="form-group">
      <label for="author">Add Author:</label>
      <input id="author" name="author" class="form-control" type="text" required>
+  </div>
+  <div>
+    <input type="hidden" id="book_id" name="book_id" value="<%= @book.id %>">
   </div>
 
   <button type="submit" class="btn-success">Add</button>
@@ -21,7 +24,7 @@
 <h3>Authors:</h3>
   <ul>
     <% @book.authors().each() do |author| %>
-      <li><%= author.text %></li>
+      <li><%= author.name %></li>
     <% end %>
   </ul>
 <% end %>

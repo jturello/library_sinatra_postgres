@@ -38,8 +38,18 @@ describe('/book/:id - book detail page', {:type => :feature}) do
     click_link('Admin')
     fill_in('book', :with => 'The Hobbit')
     click_button('Add')
-    # expect(page).to have_content('The Hobbit')
     click_link('The Hobbit')
     expect(page).to have_content('Book Detail Page')
+  end
+
+  it("displays the author when added to a book") do
+    visit('/')
+    click_link('Admin')
+    fill_in('book', :with => 'The Hobbit')
+    click_button('Add')
+    click_link('The Hobbit')
+    fill_in("author", :with => "J.R.R. Tolkien")
+    click_button('Add')
+    expect(page).to have_content('J.R.R. Tolkien')
   end
 end
