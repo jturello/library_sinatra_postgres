@@ -3,6 +3,7 @@ require('spec_helper')
 describe(Author) do
 
   before(:each) do
+    DB.exec("DELETE FROM authors_books;")
     Author.delete_all()
   end
 

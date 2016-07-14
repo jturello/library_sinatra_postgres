@@ -3,6 +3,7 @@ require('spec_helper')
 describe(Book) do
 
   before(:each) do
+    DB.exec("DELETE FROM authors_books;")
     Book.delete_all()
   end
 
@@ -99,6 +100,19 @@ describe(Book) do
       book1.update_title!('Green')
       book2 = Book.find(book1.id)
       expect(book2.title).to eq('Green')
+    end
+  end
+
+  describe('#add_authors') do
+    it("let's user associate authors with books") do
+      book = Book.new({:id => nil, :title => "The Hobbit"})
+      book.save()
+      tolkien = Author.new({:id => nil, :name => 'J.R.R Tolkien'})
+      creighton = Author.new({:id => nil, :name => 'Michael Creighton'})
+      tolkien.save()
+      creighton.save()
+      book.add_authors({:author_ids => [tolkien.id(), creighton.id()]})
+      expect(book.authors()).to eq([tolkien, creighton])
     end
   end
 end

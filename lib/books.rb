@@ -13,10 +13,12 @@ class Book
   end
 
   define_singleton_method(:delete_all) do
+    DB.exec("DELETE FROM authors_books;")
     DB.exec("DELETE FROM books;")
   end
 
   define_method(:delete) do
+    DB.exec("DELETE FROM authors_books WHERE book_id = #{@id};")
     DB.exec("DELETE FROM books WHERE id = #{@id};")
   end
 
@@ -42,5 +44,23 @@ class Book
     @title = new_title
     DB.exec("UPDATE books SET title = '#{@title}' WHERE id = #{@id}")
   end
+
+  def add_authors(args)
+     args.fetch(:author_ids, []).each() do |author_id|
+       DB.exec("INSERT INTO authors_books (author_id, book_id) VALUES (#{author_id}, #{@id});")
+     end
+   end
+
+   def authors()
+     authors = []
+     results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{@id};")
+     results.each() do |result|
+       author_id = result.fetch("author_id").to_i
+       author = DB.exec("SELECT name FROM authors WHERE id = #{author_id};")
+       name = author.first().fetch("name")
+       authors.push(Author.new({:id => author_id, :name => name}))
+     end
+     authors
+   end
 
 end
