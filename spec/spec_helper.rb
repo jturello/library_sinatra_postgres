@@ -2,6 +2,7 @@ require('rspec')
 require('books')
 require('authors')
 require('patrons')
+require('checkouts')
 require('pg')
 
 DB = PG.connect({:dbname => 'library_test'})
