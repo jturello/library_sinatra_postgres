@@ -8,7 +8,7 @@ require('pry')
 require('launchy')
 require('pg')
 
-DB = PG.connect({:dbname => 'library_test'})
+# DB = PG.connect({:dbname => 'library_test'})
 
 
 get('/') do
@@ -18,15 +18,20 @@ end
 
 get('/admin') do
     @page_title = "Book Catalog"
-
     erb(:books)
 end
 
 post('/add_book') do
   title = params[:book]
   book = Book.new({:id => nil, :title => title})
-  book.save
-  @books = Book.all()
-
+  book.save()
   erb(:books)
+end
+
+get ('/books/:id') do
+  @page_title = "Book Detail Page"
+  @book = Book.find(params[:id].to_i)
+  # binding.pry
+
+  erb(:book)
 end

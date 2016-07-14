@@ -2,10 +2,10 @@ require('spec_helper')
 
 describe(Book) do
 
-  before(:each) do
-    DB.exec("DELETE FROM authors_books;")
-    Book.delete_all()
-  end
+  # after(:each) do
+  #   DB.exec("DELETE FROM authors_books;")
+  #   Book.delete_all()
+  # end
 
   describe('#initialize') do
     it('instantiates a book object') do

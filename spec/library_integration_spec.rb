@@ -3,6 +3,7 @@ require('./app')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 
+
 describe("root path '/'", {:type => :feature}) do
   it('displays the homepage') do
     visit('/')
@@ -28,5 +29,17 @@ describe('/admin - adding a book', {:type => :feature}) do
     fill_in('book', :with => 'The Hobbit')
     click_button('Add')
     expect(page).to have_content('The Hobbit')
+  end
+end
+
+describe('/book/:id - book detail page', {:type => :feature}) do
+  it("displays header - Book Detail Page") do
+    visit('/')
+    click_link('Admin')
+    fill_in('book', :with => 'The Hobbit')
+    click_button('Add')
+    # expect(page).to have_content('The Hobbit')
+    click_link('The Hobbit')
+    expect(page).to have_content('Book Detail Page')
   end
 end
