@@ -9,20 +9,20 @@ describe('Checkout') do
       expect(Checkout.new({:patron => patron}).class).to eq(Checkout)
     end
 
-    it('instantiates a checkout object with a Patron instance variable') do
+    it('instantiates a checkout object with a Patron') do
       patron = Patron.new({:id => nil, :name => "Conway Twitty"})
       checkout = Checkout.new({:patron => patron})
       expect(checkout.patron).to eq(patron)
     end
 
-    it('instantiates a checkout object with a Book instance variable') do
+    it('instantiates a checkout object with a Book') do
       patron = Patron.new({:id => nil, :name => "Conway Twitty"})
       book = Book.new({:id => nil, :title => "Hawaii"})
       checkout = Checkout.new({:patron => patron, :book => book})
       expect(checkout.book).to eq(book)
     end
 
-    it('instantiates a checkout object with a due_date instance variable') do
+    it('instantiates a checkout object with a due_date') do
       patron = Patron.new({:id => nil, :name => "Conway Twitty"})
       book = Book.new({:id => nil, :title => "20,000 Leagues Under the Sea"})
       current = Time.new()
